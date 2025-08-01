@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head><title>會員專區</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+  <div class="container">
+    <main class="main-content">
+      <h2 id="welcome-message">載入中...</h2>
+      <div id="vip-content"></div>
+      <a href="#" id="logout-btn">登出</a>
+    </main>
+  </div>
+  <script>
+    const welcomeMsg = document.getElementById('welcome-message');
+    const vipContent = document.getElementById('vip-content');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // 頁面載入時自動執行
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('session_token');
+      if (!token) {
+        // 如果沒有通行證，直接踢回登入頁
+        window.location.href = '/login.html';
+        return;
+      }
+
+      // 帶著通行證去 API 獲取資料
+      const response = await fetch('https://api.wecare.dpdns.org/get-vip-data', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        welcomeMsg.textContent = `歡迎回來, ${data.name}!`;
+        vipContent.innerHTML = `<h3>秘密活動列表</h3><ul>${data.secret_events.map(e => `<li>${e}</li>`).join('')}</ul>`;
+      } else {
+        // 通行證過期或無效，踢回登入頁
+        localStorage.removeItem('session_token');
+        window.location.href = '/login.html';
+      }
+    });
+
+    logoutBtn.addEventListener('click', e => {
+      e.preventDefault();
+      localStorage.removeItem('session_token');
+      window.location.href = '/login.html';
+    });
+  </script>
+</body>
+</html>
