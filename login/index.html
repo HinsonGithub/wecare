@@ -91,7 +91,55 @@
       msgArea.textContent = `前端捕捉到錯誤： ${error.message}`;
     }
   });
+    
+  const form = document.getElementById('login-form');
+  const msgArea = document.getElementById('message-area');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    msgArea.textContent = '正在登入...'; // 顯示處理中訊息
+    msgArea.style.color = 'blue';
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch('https://api.wecare.dpdns.org/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      // --- 這裡就是偵錯模式的關鍵 ---
+      // 不管成功或失敗，都先讀取後端回傳的內容
+      const responseText = await response.text();
+
+      // 在頁面上顯示詳細的偵錯資訊
+      msgArea.style.color = 'red';
+      msgArea.innerHTML = `
+        <p><strong>偵錯資訊：</strong></p>
+        <p>HTTP 狀態碼: ${response.status}</p>
+        <p>後端回應內容: ${responseText}</p>
+      `;
+
+      // 如果真的成功了，再嘗試跳轉
+      if (response.ok) {
+        msgArea.style.color = 'green';
+        msgArea.textContent = '登入成功，正在跳轉...';
+        const data = JSON.parse(responseText);
+        if (data.token) {
+          localStorage.setItem('session_token', data.token);
+          window.location.href = '/dashboard/';
+        }
+      }
+
+    } catch (error) {
+      msgArea.style.color = 'red';
+      msgArea.textContent = `前端捕捉到錯誤： ${error.message}`;
+    }
+  });
 </script>
+
 
 </body>
 </html>
