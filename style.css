@@ -1,0 +1,183 @@
+/* General Body Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+/* Header and Navigation */
+header {
+    background: #fff;
+    color: #333;
+    padding-top: 20px;
+    min-height: 70px;
+    border-bottom: #0056b3 3px solid;
+}
+
+header a {
+    color: #333;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header .logo {
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+header nav {
+    float: right;
+    margin-top: 10px;
+}
+
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    padding: 0 20px;
+}
+
+header nav a:hover {
+    color: #0056b3;
+    font-weight: bold;
+}
+
+/* Main Content Area */
+.main-content {
+    padding: 40px 20px;
+    background: #fff;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.main-content h1, .main-content h2, .main-content h3 {
+    color: #0056b3;
+}
+
+/* Hero Section on Homepage */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    /* Placeholder for an image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #aaa;
+}
+
+
+/* Buttons */
+.button {
+    display: inline-block;
+    background: #ff8c00;
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background: #e07b00;
+}
+
+
+/* Event Page Table */
+.event-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.event-table th, .event-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.event-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+/* Login Page */
+.login-container {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-container .notice {
+    background-color: #eef7ff;
+    color: #0056b3;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border: 1px solid #b3d7ff;
+}
+
+.login-container form input[type="text"],
+.login-container form input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-container form button {
+    width: 100%;
+}
+
+.login-container form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: #666;
+    background: #f2f2f2;
+    font-size: 14px;
+}
