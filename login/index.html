@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登入 - WE CARE SEN CHILDREN (HK)</title>
+    <title>登入 - WE CARE</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
     <header>
         <div class="container">
-            <p class="logo">WE CARE SEN CHILDREN (HK)</p>
+            <p class="logo">WE CARE</p>
             <nav>
                 <ul>
-                    <li><a href="/index.html">主頁</a></li>
-                    <li><a href="/event">活動</a></li>
-                    <li><a href="/login">登入</a></li>
+                    <li><a href="/">主頁</a></li>
+                    <li><a href="/event/">活動</a></li>
+                    <li><a href="/login/">登入</a></li>
                 </ul>
             </nav>
         </div>
@@ -27,50 +27,57 @@
             <p><strong>注意：</strong>本站不提供公開註冊服務。如需申請帳戶，請電郵至 <strong>kh@wecare.dpdns.org</strong> 聯繫我們的職員。</p>
         </div>
         
-        <form action="#" method="post" onsubmit="return false;">
+        <form id="login-form">
             <label for="email" style="display: block; text-align: left; margin-bottom: 5px;">電郵地址</label>
-            <input type="text" id="email" name="email" placeholder="請輸入電郵地址">
+            <input type="text" id="email" name="email" placeholder="請輸入電郵地址" required>
             
             <label for="password" style="display: block; text-align: left; margin-bottom: 5px;">密碼</label>
-            <input type="password" id="password" name="password" placeholder="請輸入密碼">
+            <input type="password" id="password" name="password" placeholder="請輸入密碼" required>
             
             <button type="submit" class="button">登入</button>
         </form>
+
+        <p id="message-area" style="color: red; margin-top: 15px;"></p>
     </div>
 
     <footer>
-        <p>&copy; 2025 WE CARE SEN CHILDREN (HK) | 聯絡我們：info@wecare.dpdns.org | 隱私政策</p>
+        <p>&copy; 2025 WE CARE | 聯絡我們：info@wecare.dpdns.org | 隱私政策 | Beta</p>
     </footer>
     
     <script>
-  const form = document.getElementById('login-form');
-  const msgArea = document.getElementById('message-area');
+      // 現在這兩行都可以正確找到對應的 HTML 元素了
+      const form = document.getElementById('login-form');
+      const msgArea = document.getElementById('message-area');
 
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    msgArea.textContent = '';
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+      form.addEventListener('submit', async e => {
+        e.preventDefault(); // 阻止表單預設的提交行為
+        msgArea.textContent = ''; // 清空之前的訊息
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-// login.html 裡的 script
-const response = await fetch('https://api.wecare.dpdns.org/login', { // <--- 確認這個網址！
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ email, password })
-});
+        try {
+            const response = await fetch('https://api.wecare.dpdns.org/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
 
-    if (response.ok) {
-      const data = await response.json();
-      // 將通行證儲存在瀏覽器的 localStorage
-      localStorage.setItem('session_token', data.token);
-      // 手動跳轉到會員專區頁面
-      window.location.href = '/dashboard';
-    } else {
-      msgArea.textContent = '帳號或密碼錯誤。';
-    }
-  });
-</script>
-
-
+            if (response.ok) {
+                const data = await response.json();
+                // 將通行證儲存在瀏覽器的 localStorage
+                if (data.token) {
+                    localStorage.setItem('session_token', data.token);
+                    // 手動跳轉到會員專區頁面
+                    window.location.href = '/dashboard/';
+                }
+            } else {
+                msgArea.textContent = '帳號或密碼錯誤。';
+            }
+        } catch (error) {
+            console.error('Login Error:', error);
+            msgArea.textContent = '登入時發生網路錯誤，請稍後再試。';
+        }
+      });
+    </script>
 </body>
 </html>
