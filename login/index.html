@@ -52,19 +52,19 @@
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // 注意：網址變成了我們的 API 子網域
-    const response = await fetch('https://api.wecare.dpdns.org/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
+// login.html 裡的 script
+const response = await fetch('https://api.wecare.dpdns.org/login', { // <--- 確認這個網址！
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
 
     if (response.ok) {
       const data = await response.json();
       // 將通行證儲存在瀏覽器的 localStorage
       localStorage.setItem('session_token', data.token);
       // 手動跳轉到會員專區頁面
-      window.location.href = '/dashboard.html';
+      window.location.href = '/dashboard';
     } else {
       msgArea.textContent = '帳號或密碼錯誤。';
     }
