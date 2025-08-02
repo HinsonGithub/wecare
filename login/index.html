@@ -41,7 +41,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 WE CARE | 聯絡我們：info@wecare.dpdns.org | 隱私政策 | Error Verify</p>
+        <p>&copy; 2025 WE CARE | 聯絡我們：info@wecare.dpdns.org | 隱私政策 | release.Stable1</p>
     </footer>
     <script>
   const form = document.getElementById('login-form');
@@ -77,7 +77,7 @@
       // 如果真的成功了，再嘗試跳轉
       if (response.ok) {
         msgArea.style.color = 'green';
-        msgArea.textContent = '登入成功，正在跳轉...';
+        msgArea.textContent = '登入成功，正在跳轉...（如一直停留在此頁面，請確認用戶名、密碼大小是否正確後，重新刷新此頁面。）';
         const data = JSON.parse(responseText);
         if (data.token) {
           localStorage.setItem('session_token', data.token);
